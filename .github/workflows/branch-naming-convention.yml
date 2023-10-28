@@ -1,0 +1,28 @@
+name: Enforce Branch Naming Convention
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  branch-naming-convention:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check Branch Naming Convention
+      id: branch-naming
+      run: |
+        # Regular expression to match the branch naming convention
+        branch_regex="^(feature|bugfix|improvement|hotfix)-[a-zA-Z0-9-]+-\d+$"
+        while read local_ref local_sha remote_ref remote_sha; do
+          if [[ $local_ref != "refs/heads/master" && ! $local_ref =~ $branch_regex ]]; then
+            echo "Branch name does not follow the convention: $local_ref"
+            exit 1
+          fi
+        done
+      shell: bash
+
+    - name: Complete Workflow
+      if: failure()
+      run: exit 1

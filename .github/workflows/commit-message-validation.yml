@@ -1,0 +1,22 @@
+name: Commit Message Validation
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  commit-message-validation:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check Commit Messages
+      uses: actions/checkout@v2
+
+    - name: Commitlint Setup
+      run: npm install --save-dev @commitlint/{config-conventional,cli}
+
+    - name: Commitlint Validation
+      run: |
+        npm ci
+        npx commitlint -E HUSKY_GIT_PARAMS
