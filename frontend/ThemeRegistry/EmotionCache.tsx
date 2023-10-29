@@ -1,10 +1,13 @@
-'use client';
-import * as React from 'react';
-import createCache from '../../../node_modules/@emotion/cache/dist';
-import { useServerInsertedHTML } from 'next/navigation';
-import { CacheProvider as DefaultCacheProvider } from '../../../node_modules/@emotion/react/dist';
-import type { EmotionCache, Options as OptionsOfCreateCache } from '../../../node_modules/@emotion/cache/dist';
+"use client";
 
+import type {
+  EmotionCache,
+  Options as OptionsOfCreateCache,
+} from "@emotion/cache";
+import createCache from "@emotion/cache";
+import { CacheProvider as DefaultCacheProvider } from "@emotion/react";
+import { useServerInsertedHTML } from "next/navigation";
+import * as React from "react";
 export type NextAppDirEmotionCacheProviderProps = {
   /** This is the options passed to createCache() from 'import createCache from "@emotion/cache"' */
   options: Omit<OptionsOfCreateCache, 'insertionPoint'>;
